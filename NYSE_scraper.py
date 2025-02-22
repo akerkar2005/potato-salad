@@ -2,6 +2,7 @@ import yfinance as yf
 import pandas as pd
 import time
 import sys
+
 COLUMNS = ['Symbol', 'shortName', 'forwardPE', 'currentRatio', 'shortRatio', 'marketCap', 'sector', 'industry']
 
 
@@ -13,7 +14,7 @@ def progressBar(count, total, width=50):
     sys.stdout.write(f'\r{bar} {percent:.1f}%')
     sys.stdout.flush()
 
-
+    
 def processStock(ticker):
     info = yf.Ticker(ticker)
     try:
@@ -22,15 +23,15 @@ def processStock(ticker):
         currData = [ticker]
         for col in range(1, len(COLUMNS)):
             currData.append(info.info[COLUMNS[col]])
-        #for key in info.info:
-            #print(key, info.info[key])
+
         return currData
 
     except KeyError:
         return 'INVALID_STOCK'
     except Exception as e:
         return 'RATE_LIMITED'
-       
+ 
+
 startTime = time.time()
 
 NYSE_DF = pd.read_csv("https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt", sep = '|') 

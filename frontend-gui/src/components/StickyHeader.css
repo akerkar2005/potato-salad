@@ -1,0 +1,53 @@
+.sticky-header {
+    position: sticky;
+    top: 0px;
+    left: 0;
+    right: 0;
+    padding: 5px;
+    border-bottom: 5px thick #000000;
+    background-color: #333;
+    color: white;
+    display: flex;
+    align-items: center; /* Vertically center items */
+    width: 100%;
+    gap: 40px;
+    z-index: 1000; /* Ensure the header is on top of other content */
+  }
+  
+  /* Logo button styles */
+  .sticky-header .logo-button {
+    background-color: transparent; /* Remove background for logo */
+    border: none;
+    padding: 0; /* Remove padding for logo */
+    cursor: pointer;
+    margin-right: auto; /* Push logo to the left */
+  }
+  
+  /* Logo image inside the logo button */
+  .sticky-header .logo-button img {
+    height: 90px; /* Adjust logo size */
+    transform: scale(1);
+    width: auto; /* Maintain aspect ratio */
+  }
+  
+  /* Container for other buttons */
+  .sticky-header .button-container {
+    display: flex;
+    gap: 20px;
+    padding: 40px;
+  }
+  
+  /* General button styles */
+  .sticky-header .button-container button {
+    background-color: #161212;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px 30px;
+    font-size: 50px;
+    cursor: pointer;
+  }
+  
+  /* Hover effect for buttons */
+  .sticky-header .button-container button:hover {
+    background-color: #555;
+  }

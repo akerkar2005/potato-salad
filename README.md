@@ -1,4 +1,4 @@
-# Potato salad
+# Potato Salad
 ## Your one-stop site for all potato stonks
 
 Potato salad is a stock advisor that draws from nearly 6000 US-listed stocks.

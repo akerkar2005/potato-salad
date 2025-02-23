@@ -4,6 +4,7 @@ import time
 import sys
 
 COLUMNS = ['Symbol', 'shortName', 'forwardPE', 'currentRatio', 'shortRatio', 'marketCap', 'sector', 'industry']
+BILLION = 10 ** 9
 
 
 def progressBar(count, total, width=50):
@@ -26,11 +27,12 @@ def processStock(ticker):
 
         return currData
 
-    except KeyError:
+    except (KeyError, AttributeError):
         return 'INVALID_STOCK'
     except Exception as e:
-        return 'RATE_LIMITED'
- 
+        errorStr = f'{e}'
+        return 'RATE_LIMITED' if 'rate' in errorStr.lower() else 'INVALID_STOCK'
+
 
 startTime = time.time()
 
@@ -40,7 +42,7 @@ NYSE_DF = NYSE_DF[(NYSE_DF['Exchange'] == 'N') & (NYSE_DF['ETF'] != 'Y') & (NYSE
 NYSE_SYMBOLS = NYSE_DF['NASDAQ Symbol'].tolist()
 
 tickerData = []
-LIMIT = 100
+LIMIT = len(NYSE_SYMBOLS)
 
 print("Beginning NYSE processing...")
 
@@ -65,6 +67,7 @@ while index < LIMIT:
 
     except KeyboardInterrupt:
         break
+
 
 NYSE_OBJECTIVE_DATA_DF = pd.DataFrame(tickerData, columns=COLUMNS)
 NYSE_OBJECTIVE_DATA_DF.to_csv('NYSE_DATA.csv', index = False)

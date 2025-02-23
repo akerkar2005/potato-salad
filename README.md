@@ -16,3 +16,4 @@ python backendApp.py
 cd frontend-gui
 npm run dev
 ```
+Navigate to http://localhost:5173

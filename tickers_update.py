@@ -8,7 +8,7 @@ Created on Fri Feb 21 23:02:20 2025
 import time
 import pandas as pd
 import yfinance as yf
-fileDir = '~\\data.csv'
+fileDir = '.\\data.csv'
 df = pd.read_csv(fileDir)
 COLUMNS = ['ticker', 'shortName', 'dict_info', 'has_forwardPE', 'forwardPE',
            'currentRatio', 'shortRatio', 'marketCap', 'sector', 'industry']

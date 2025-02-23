@@ -1,5 +1,5 @@
 # Potato Salad
-## Your one-stop site for all potato stonks
+## Your one-stop site for all stocks
 
 Potato salad is a stock advisor that draws from nearly 6000 US-listed stocks.
 You can customize your preferences in the left panel to receive a tailored pick of tickers.

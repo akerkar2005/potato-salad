@@ -32,15 +32,15 @@
 .sticky-header .logo-button {
     background-color: transparent; /* Remove background for logo */
     border: none;
-    padding: 7px; /* Remove padding for logo */
+    padding: 10px; /* Remove padding for logo */
     cursor: pointer;
     margin-right: auto; /* Push logo to the left */
 }
 
 /* Logo image inside the logo button */
 .sticky-header .logo-button img {
-    height: 90px; /* Adjust logo size */
-    transform: scale(1);
+    height: 80px; /* Adjust logo size */
+    transform: scale(1.2);
     width: auto; /* Maintain aspect ratio */
 }
 
@@ -48,7 +48,22 @@
 .sticky-header .button-container {
     display: flex;
     gap: 20px;
-    padding: 20px;
+    padding: 10px;
+    margin-left: auto;
+}
+
+.sticky-header .logo-title-container {
+    display: flex;
+    padding: 0px;
+}
+
+.sticky-header .logo-title-container h1 {
+    font-size: 50px;
+    font-weight: bold;
+    background: linear-gradient(75deg, #b38b46 35%, #00dc67 80%); /* Gradient background */
+    -webkit-background-clip: text; /* Clip the background to the text */
+    -webkit-text-fill-color: transparent; /* Make the text transparent to show the gradient */
+    cursor: pointer;
 }
 
 /* General button styles */
@@ -58,7 +73,8 @@
     border: none;
     font-weight: bold;
     padding: 30px 50px;
-    font-size: 30px;
+    font-size: 35px;
+    transform: translateX(-30%);
     perspective: 1000px; /* Perspective for 3D effect */
 }
 

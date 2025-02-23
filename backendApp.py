@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from stockSorter import StockSorter
 from newsScraper import NewsScraper
 import uvicorn
+import humanize
 
 app = FastAPI()
 
@@ -25,13 +26,14 @@ async def launchApp():
     stockList = []
     for row in defaultList:
         newRow = {}
-        newRow['ticker'] = row['ticker']
-        newRow['shortName'] = row['shortName']
-        newRow['currentRatio'] = row['currentRatio']
-        newRow['shortRatio'] = row['shortRatio']
-        newRow['marketCap'] = row['marketCap']
-        newRow['industry'] = row['industry']
-        newRow['sector'] = row['sector']
+        newRow['Ticker'] = row['ticker']
+        newRow['Name'] = row['shortName']
+        newRow['PE Ratio'] = round(row['forwardPE'], 2)
+        newRow['Current Ratio'] = round(row['currentRatio'], 2)
+        newRow['Short Ratio'] = round(row['shortRatio'], 2)
+        newRow['Market Cap'] = humanize.intword(row['marketCap']),
+        newRow['Sector'] = row['sector']
+        newRow['Industry '] = row['industry']
         newRow['sentiment'] = row['sentiment']
         newRow['confidence'] = row['confidence']
 
@@ -60,13 +62,14 @@ async def updateSortedList(preferences: dict):
     sortedList = []
     for row in newList:
         newRow = {}
-        newRow['ticker'] = row['ticker']
-        newRow['shortName'] = row['shortName']
-        newRow['currentRatio'] = row['currentRatio']
-        newRow['shortRatio'] = row['shortRatio']
-        newRow['marketCap'] = row['marketCap']
-        newRow['industry'] = row['industry']
-        newRow['sector'] = row['sector']
+        newRow['Ticker'] = row['ticker']
+        newRow['Name'] = row['shortName']
+        newRow['PE Ratio'] = round(row['forwardPE'], 2)
+        newRow['Current Ratio'] = round(row['currentRatio'], 2)
+        newRow['Short Ratio'] = round(row['shortRatio'], 2)
+        newRow['Market Cap'] = humanize.intword(row['marketCap']),
+        newRow['Sector'] = row['sector']
+        newRow['Industry '] = row['industry']
         newRow['sentiment'] = row['sentiment']
         newRow['confidence'] = row['confidence']
 

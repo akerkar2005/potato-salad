@@ -18,29 +18,29 @@ class StockSorter:
 
     def customStockScore(self, stockData, preferences = {}):
         
-        score = 10 * self.SENTIMENT_TO_SCORE[stockData['sentiment']] * stockData['confidence']
+        score = 5 * self.SENTIMENT_TO_SCORE[stockData['sentiment']] * stockData['confidence']
 
         if 'maxMarketCap' in preferences:
-            if stockData['marketCap'] <= preferences['maxMarketCap']:
+            if stockData['marketCap'] <= float(preferences['maxMarketCap']):
                 score += 4
         if 'minMarketCap' in preferences:
-            if stockData['marketCap'] >= preferences['minMarketCap']:
+            if stockData['marketCap'] >= float(preferences['minMarketCap']):
                 score += 4
 
         if 'sector' in preferences: score += 10 if stockData['sector'] in preferences['sector'] else 0
         if 'industry' in preferences: score += 10 if stockData['industry'] in preferences['industry'] else 0
 
-        goodShortRatio = preferences['shortRatio'] if 'shortRatio' in preferences else 2.0
+        goodShortRatio = float(preferences['shortRatio']) if 'shortRatio' in preferences else 2.0
         badShortRatio = goodShortRatio * 2.0
         if stockData['shortRatio'] <= goodShortRatio:
             score += (max((goodShortRatio - stockData['shortRatio']) / 2, 2))
         elif stockData['shortRatio'] >= badShortRatio:
             score -= (stockData['shortRatio'] - badShortRatio) / 2
 
-        goodCurrentRatio = preferences['currentRatio'] if 'currentRatio' in preferences else 1.5
+        goodCurrentRatio = float(preferences['currentRatio']) if 'currentRatio' in preferences else 1.5
         score -= 2 * abs(stockData['currentRatio'] - goodCurrentRatio)
 
-        goodPERatio = preferences['forwardPE'] if 'forwardPE' in preferences else 25
+        goodPERatio = float(preferences['forwardPE']) if 'forwardPE' in preferences else 25
         badPERatio = goodPERatio * 2.0
         if stockData['forwardPE'] <= goodPERatio and stockData['forwardPE'] > 0: 
             score += 2

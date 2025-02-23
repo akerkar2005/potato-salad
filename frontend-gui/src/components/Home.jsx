@@ -27,6 +27,7 @@ const Home = ({ navigate }) => {
                     body: JSON.stringify({})
                 });
                 const data = await response.json();
+                console.log(data);
                 setTableData(data.sortedStocks);
                 setIndustries(data.industries);
                 setSectors(data.sectors);
@@ -34,7 +35,6 @@ const Home = ({ navigate }) => {
                 console.error('Error fetching data:', error);
             }
         };
-
         fetchData();
     }, []);
 
@@ -47,23 +47,26 @@ const Home = ({ navigate }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         // Validate numeric inputs
-        if (isNaN(minMarketCap) || isNaN(maxMarketCap) || isNaN(shortRatio) || isNaN(PERatio) || isNaN(currentRatio) || selectedIndustries.length === 0 || selectedSectors.length === 0) {
+        if (isNaN(minMarketCap) || isNaN(maxMarketCap) || isNaN(shortRatio) || isNaN(PERatio) || isNaN(currentRatio) || minMarketCap > maxMarketCap) {
             alert('Please enter valid numbers for Market Cap, Short Ratio, P/E Ratio, and Current Ratio.');
             return;
         }
-
         const preferences = {
             'industry': selectedIndustries,
             'sector': selectedSectors,
-            'minMarketCap': minMarketCap,
-            'maxMarketCap': maxMarketCap,
-            'shortRatio': shortRatio,
-            'forwardPE': PERatio,
-            'currentRatio': currentRatio
         };
 
+        const displayFields = [minMarketCap, maxMarketCap, shortRatio, PERatio, currentRatio];
+        const numericFields = ['minMarketCap', 'maxMarketCap', 'shortRatio', 'forwardPE', 'currentRatio'];
+        for (let i = 0; i < displayFields.length; i++) {
+            if (parseFloat(displayFields[i]) == 0.0) {
+                continue;
+            }
+            preferences[numericFields[i]] = displayFields[i];
+        }
+    
         try {
             const response = await fetch('http://localhost:3000/api/update', {
                 method: 'POST',
@@ -82,25 +85,10 @@ const Home = ({ navigate }) => {
     return (
         <div className="main-comp">
             <StickyHeader navigate={navigate} />
-            <h1>Welcome to the Stock Screener</h1>
             <div className="content-container">
                 <form onSubmit={handleSubmit} className="stock-form">
-                    <div className="form-group">
-                        <label>Industry:</label>
-                        {industries.map(industry => (
-                            <div key={industry}>
-                                <input
-                                    type="checkbox"
-                                    value={industry}
-                                    checked={selectedIndustries.includes(industry)}
-                                    onChange={(e) => handleCheckboxChange(e, setSelectedIndustries)}
-                                />
-                                {industry}
-                            </div>
-                        ))}
-                    </div>
-                    <div className="form-group">
-                        <label>Sector:</label>
+                <label>Sector:</label>
+                    <div className="form-group-prime">
                         {sectors.map(sector => (
                             <div key={sector}>
                                 <input
@@ -110,6 +98,20 @@ const Home = ({ navigate }) => {
                                     onChange={(e) => handleCheckboxChange(e, setSelectedSectors)}
                                 />
                                 {sector}
+                            </div>
+                        ))}
+                    </div>
+                    <label>Industry:</label>
+                    <div className="form-group-prime">
+                        {industries.map(industry => (
+                            <div key={industry}>
+                                <input
+                                    type="checkbox"
+                                    value={industry}
+                                    checked={selectedIndustries.includes(industry)}
+                                    onChange={(e) => handleCheckboxChange(e, setSelectedIndustries)}
+                                />
+                                {industry}
                             </div>
                         ))}
                     </div>
@@ -135,7 +137,7 @@ const Home = ({ navigate }) => {
                     </div>
                     <button type="submit" className="submit-button">Submit</button>
                 </form>
-                {/* <CoolTable data={tableData} /> */}
+                <CoolTable data={tableData} />
             </div>
         </div>
     );

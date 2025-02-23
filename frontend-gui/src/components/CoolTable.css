@@ -1,8 +1,13 @@
 .cool-table-container {
-  display: flex;
+  display: auto;
   justify-content: center;
   align-items: center;
-  padding: 0px 40px 0px 20px;
+  overflow-y: auto;
+  overflow-x: auto;
+  margin-right: auto;
+  padding: 0px 5px 0px 30px;
+  max-height: 970px;
+  width: 100%;
 }
 
 .cool-table {
@@ -10,16 +15,19 @@
   width: 100%;
   margin: 0px 0;
   font-size: 18px;
+  position: sticky;
   text-align: left;
 }
 
 .cool-table th,
 .cool-table td {
-  border: 1px solid #ddd;
+  /*border: 1px solid #ddd;*/
   padding: 12px;
 }
 
 .cool-table th {
+  position: sticky;
+  top: 0;
   background-color: #333;
   color: white;
 }

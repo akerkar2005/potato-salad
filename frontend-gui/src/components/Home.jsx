@@ -135,7 +135,7 @@ const Home = ({ navigate }) => {
                     </div>
                     <button type="submit" className="submit-button">Submit</button>
                 </form>
-                <CoolTable data={tableData} />
+                {/* <CoolTable data={tableData} /> */}
             </div>
         </div>
     );

@@ -5,6 +5,7 @@ class StockSorter:
     def __init__(self, CSV_LOCATION = 'SENTIMENT_STOCK_DATA.csv'):
         STOCK_DATA_DF = pd.read_csv(CSV_LOCATION)
         STOCK_DATA_DF = STOCK_DATA_DF.fillna(0)
+        STOCK_DATA_DF = STOCK_DATA_DF.loc[:, ~STOCK_DATA_DF.columns.str.contains('^Unnamed')]
         self.COLUMNS = STOCK_DATA_DF.columns.tolist()
         STOCK_LIST = STOCK_DATA_DF.values.tolist()
         self.SENTIMENT_TO_SCORE = {'positive': 1, 'neutral': 0, 'negative': -1}
@@ -54,18 +55,25 @@ class StockSorter:
     def getUniqueIndustries(self):
         industries = set()
         for item in self.STOCK_DATA:
-            industries.add(item['industry'])
+            industries.add(str(item['industry']))
+
+        if '0' in industries: industries.remove('0')
 
         return list(industries)
     
     def getUniqueSectors(self):
         sectors = set()
         for item in self.STOCK_DATA:
-            sectors.add(item['sector'])
+            sectors.add(str(item['sector']))
 
+        if '0' in sectors: sectors.remove('0')
+    
         return list(sectors)
 
 
     def sortWithPreferences(self, preferences={}):
         SORTED_DATA = sorted(self.STOCK_DATA, key=lambda stockData: self.customStockScore(stockData, preferences), reverse = True)
         return SORTED_DATA
+
+
+obj = StockSorter()

@@ -1,0 +1,33 @@
+.cool-table-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 40px 0px 20px;
+}
+
+.cool-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0px 0;
+  font-size: 18px;
+  text-align: left;
+}
+
+.cool-table th,
+.cool-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+}
+
+.cool-table th {
+  background-color: #333;
+  color: white;
+}
+
+.cool-table tr:nth-child(even) {
+  background-color: #324646;
+}
+
+.cool-table tr:hover {
+  background-color: #546154;
+}

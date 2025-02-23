@@ -1,0 +1,101 @@
+.sticky-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 5px;
+    background-color: rgba(82, 99, 99, 0.6); /* Semi-transparent background */
+    color: white;
+    display: flex;
+    align-items: center; /* Vertically center items */
+    width: 100%;
+    gap: 40px;
+    z-index: 1000; /* Ensure the header is on top of other content */
+    backdrop-filter: blur(9px); /* Apply blur effect */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+.sticky-header::after {
+    content: '';
+    display: block;
+    width: 50%; /* Adjust the width as needed */
+    height: 4px; /* Adjust the height as needed */
+    background: linear-gradient(145deg, #FFD700, #FFC700); /* Shiny gold gradient */
+    margin: 0 auto; /* Center the border */
+    border-radius: 2px; /* Optional: Add border radius for rounded edges */
+    position: absolute;
+    bottom: 0;
+    left: 25%; /* Center the border horizontally */
+}
+
+/* Logo button styles */
+.sticky-header .logo-button {
+    background-color: transparent; /* Remove background for logo */
+    border: none;
+    padding: 7px; /* Remove padding for logo */
+    cursor: pointer;
+    margin-right: auto; /* Push logo to the left */
+}
+
+/* Logo image inside the logo button */
+.sticky-header .logo-button img {
+    height: 90px; /* Adjust logo size */
+    transform: scale(1);
+    width: auto; /* Maintain aspect ratio */
+}
+
+/* Container for other buttons */
+.sticky-header .button-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* General button styles */
+.sticky-header .button-container .flip-button {
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    border: none;
+    font-weight: bold;
+    padding: 30px 50px;
+    font-size: 30px;
+    perspective: 1000px; /* Perspective for 3D effect */
+}
+
+.sticky-header .button-container .flip-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.sticky-header .button-container .flip-button:hover .flip-content,
+.sticky-header .button-container .flip-button.flipped .flip-content {
+    transform: rotateY(180deg);
+}
+
+.sticky-header .button-container .flip-front,
+.sticky-header .button-container .flip-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 0px; /* Optional: Add border radius */
+    transition: transform 0.6s ease-in-out; /* Smooth transition */
+}
+
+.sticky-header .button-container .flip-front {
+    color: rgb(82, 164, 82);
+    background: rgb(82, 164, 82); /* Set background color to forest green */
+}
+
+.sticky-header .button-container .flip-back {
+    transform: rotateY(180deg);
+    color: #edf3ae; /* Darker text color for contrast */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some shadow for depth */
+}

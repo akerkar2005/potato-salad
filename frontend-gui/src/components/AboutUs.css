@@ -4,11 +4,13 @@
     align-items: center;
     justify-content: center;
     overflow: visible;
+    padding: 0px 0px 0px 0px;
 }
 
 .about-us {
   text-align: center;
-  padding: 20px;
+  padding: 10px;
+  font-size: 18px;
 }
 
 .team {
@@ -20,34 +22,66 @@
 .team-member {
   margin: 20px;
   padding: 20px;
-  border: 1px solid #ddd;
+  border: 2px solid #79a158;
   border-radius: 10px;
-  width: 200px;
+  width: 300px;
   text-align: center;
+  background-color: #333;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.team-member:hover {
+  background-color: #444;
+  border-color: #58a1a1;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
 .team-member-image {
   width: 100%;
   height: auto;
   border-radius: 50%;
-  transition: ease-in-out 0.5s;
+  transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+  cursor: pointer;
 }
 
 .team-member-image:hover {
   transform: scale(1.05);
-  box-shadow:#555 0px 0px 10px;
+  box-shadow: #555 0px 0px 10px;
 }
 
 .team-member h2 {
+  color: #79a158;
   margin: 10px 0 5px;
 }
 
 .team-member h3 {
   margin: 5px 0;
-  color: #555;
+  color: #58a1a1;
 }
 
 .team-member p {
   font-size: 14px;
-  color: #777;
+  color: #ffffff;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 45px;
+  margin-top: 10px;
+}
+
+.social-link {
+  color: #66b4d8;
+  font-size: 50px;
+  transition: color 0.3s ease-in-out;
+}
+
+.social-link:hover {
+  color: #b6ddf1;
+}
+
+.social-link i {
+  margin-right: 5px;
 }

@@ -6,8 +6,6 @@ import Home from './components/Home';
 
 function App() {
     document.title = "Stock Screener";
-    const [showTerminal, setShowTerminal] = useState(false); // Control terminal visibility
-
     return (
         <Router>
             <AppWithBackground />
@@ -16,7 +14,7 @@ function App() {
 }
 
 function AppWithBackground() {
-    const location = useLocation(); // useLocation within Router context
+    const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {

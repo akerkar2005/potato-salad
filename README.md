@@ -8,10 +8,11 @@ Visit the About us site to learn more about the creators of this epic platform!
 # Initialization
 ## Backend
 ```
-python backendApp.py localhost:3000
+cd backend
+python backendApp.py
 ```
 ## Frontend
 ```
-cd frontend folder
-npm run localhost:5143
+cd frontend-gui
+npm run dev
 ```

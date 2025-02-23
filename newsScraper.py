@@ -44,8 +44,6 @@ class NewsScraper:
 
     def getNews(self, stockTicker, printOut=False):
 
-        print("Retrieving news for " + stockTicker + '\n')
-
         response = requests.get('https://finance.yahoo.com/quote/' + stockTicker + '/news', headers=self.HEADERS)
         parser = BeautifulSoup(response.text, 'html.parser')
 

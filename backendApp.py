@@ -9,14 +9,16 @@ app = FastAPI()
 STOCK_SORTER = StockSorter()
 NEWS_SCRAPER = NewsScraper()
 
-@app.get('/')
+@app.post('/api/launch')
 async def launchApp():
+    # list of dictionaries with stuff like marketCap, shortRatio, forwardPE, ticker, shortName, etc
     defaultList = STOCK_SORTER.sortWithPreferences()
-    uniqueSectors = STOCK_SORTER.getUniqueSectors()
-    uniqueIndustries = STOCK_SORTER.getUniqueIndustries()
 
-    print(uniqueSectors)
-    print(uniqueIndustries)
+    # list of strings
+    uniqueSectors = STOCK_SORTER.getUniqueSectors()
+
+    # list of strings
+    uniqueIndustries = STOCK_SORTER.getUniqueIndustries()
 
     return {
         'sortedStocks': defaultList,
@@ -25,20 +27,16 @@ async def launchApp():
     }
     
 
-@app.get("/analyze/{ticker}")
-async def analyze_stock(ticker: str):
+@app.post("/api/update")
+async def updateSortedList(preferences: dict):
     """
     Analyze the sentiment of a given stock ticker
     """
-    print(ticker)
-    sentiment = NEWS_SCRAPER.sentimentAnalysis(ticker)
-    sentiment_label = sentiment['label']
-    sentiment_score = sentiment['confidence']
     
+    sortedList = STOCK_SORTER.sortWithPreferences(preferences)
+
     return {
-        "ticker": ticker,
-        "sentiment": sentiment_label,
-        "score": sentiment_score
+        "sortedStocks": sortedList
     }
 
-uvicorn.run(app, host="127.0.0.1", port=8000)
+uvicorn.run(app, host="127.0.0.1", port=3000)

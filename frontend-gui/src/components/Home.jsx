@@ -1,28 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 import StickyHeader from './StickyHeader';
 import CoolTable from './CoolTable';
 
-const tableData = [
-    ['Symbol', 'Short Name', 'forward P/E', 'current ratio', 'short ratio'],
-    ['Row 1, Col 1', 'Row 1, Col 2', 'Row 1, Col 3', 'Row 1, Col 4', 'Row 1, Col 5'],
-    ['Row 2, Col 1', 'Row 2, Col 2', 'Row 2, Col 3', 'Row 2, Col 4', 'Row 2, Col 5'],
-    ['Row 3, Col 1', 'Row 3, Col 2', 'Row 3, Col 3', 'Row 3, Col 4', 'Row 3, Col 5'],
-    ['Row 4, Col 1', 'Row 4, Col 2', 'Row 4, Col 3', 'Row 4, Col 4', 'Row 4, Col 5'],
-    ['Row 5, Col 1', 'Row 5, Col 2', 'Row 5, Col 3', 'Row 5, Col 4', 'Row 5, Col 5']
-];
-
-const industries = ['Technology', 'Healthcare', 'Finance', 'Energy', 'Consumer Goods'];
-const sectors = ['Software', 'Biotech', 'Banking', 'Oil & Gas', 'Retail'];
-
 const Home = ({ navigate }) => {
-    const [selectedIndustries, setSelectedIndustries] = useState(industries);
-    const [selectedSectors, setSelectedSectors] = useState(sectors);
+    const [tableData, setTableData] = useState([]);
+    const [industries, setIndustries] = useState([]);
+    const [sectors, setSectors] = useState([]);
+    const [selectedIndustries, setSelectedIndustries] = useState([]);
+    const [selectedSectors, setSelectedSectors] = useState([]);
     const [minMarketCap, setMinMarketCap] = useState('0.0');
     const [maxMarketCap, setMaxMarketCap] = useState('0.0');
     const [shortRatio, setShortRatio] = useState('0.0');
     const [PERatio, setPERatio] = useState('0.0');
     const [currentRatio, setCurrentRatio] = useState('0.0');
+
+    useEffect(() => {
+        // Make an API call when the component loads
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/api/launch', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                });
+                const data = await response.json();
+                setTableData(data.sortedStocks);
+                setIndustries(data.industries);
+                setSectors(data.sectors);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const handleCheckboxChange = (event, setSelectedItems) => {
         const { value, checked } = event.target;
@@ -31,7 +45,7 @@ const Home = ({ navigate }) => {
         );
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Validate numeric inputs
@@ -40,16 +54,29 @@ const Home = ({ navigate }) => {
             return;
         }
 
-        // Perform API call here
-        console.log({
-            selectedIndustries,
-            selectedSectors,
-            minMarketCap,
-            maxMarketCap,
-            shortRatio,
-            PERatio,
-            currentRatio
-        });
+        const preferences = {
+            'industry': selectedIndustries,
+            'sector': selectedSectors,
+            'minMarketCap': minMarketCap,
+            'maxMarketCap': maxMarketCap,
+            'shortRatio': shortRatio,
+            'forwardPE': PERatio,
+            'currentRatio': currentRatio
+        };
+
+        try {
+            const response = await fetch('http://localhost:3000/api/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(preferences)
+            });
+            const data = await response.json();
+            setTableData(data.sortedStocks);
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
     };
 
     return (

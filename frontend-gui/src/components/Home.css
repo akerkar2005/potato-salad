@@ -12,11 +12,24 @@
     flex-direction: column;
     align-items: flex-start;
     /*margin-bottom: 20px;*/
-    width: 30%;
+    width: 20%;
     background-color: #383041;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 50px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group-prime {
+    display: flex;
+    flex-direction: column;
+    width: 87.5%;
+    margin-bottom: 15px;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 2px solid #221322;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #383041;
 }
 
 .form-group {
@@ -24,18 +37,23 @@
     flex-direction: column;
     width: 100%;
     margin-bottom: 15px;
+    max-height: 200px;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #383041;
 }
 
-.form-group label {
+label {
     margin-bottom: 5px;
     font-weight: bold;
 }
 
 .form-group input {
-    padding: 10px;
+    padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px;
+    width: 87.5%;
 }
 
 .submit-button {
@@ -53,5 +71,5 @@
 }
 
 .cool-table-container {
-    width: 60%;
+    width: 70%;
 }

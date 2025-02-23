@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './StickyHeader.css';
-import aaruni from "../assets/aaruni.png";
+import potato from "../assets/potato.png";
 
 function StickyHeader({ navigate }) {
     const [flippedButton, setFlippedButton] = useState(null);
@@ -26,9 +26,12 @@ function StickyHeader({ navigate }) {
 
     return (
         <div className="sticky-header">
-            <button className="logo-button" onClick={() => navigate('/')}>
-                <img src={aaruni} alt="Logo" />
-            </button> 
+            <div className="logo-title-container">
+                <button className="logo-button" onClick={(e) => handleClick(e, '/')}>
+                    <img src={potato} alt="Logo" />
+                </button>
+                <h1 onClick={(e) => handleClick(e, '/')}>Potato Salad</h1>
+            </div>
             <div className="button-container">
                 <button
                     className="flip-button"

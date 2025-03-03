@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from stockSorter import StockSorter
-from newsScraper import NewsScraper
+from scrapers.newsScraper import NewsScraper
 import uvicorn
 import humanize
 
@@ -22,7 +22,7 @@ NEWS_SCRAPER = NewsScraper()
 @app.post('/api/launch')
 async def launchApp():
     # list of dictionaries with stuff like marketCap, shortRatio, forwardPE, ticker, shortName, etc
-    defaultList = STOCK_SORTER.sortWithPreferences()
+    defaultList = STOCK_SORTER.sortWithPreferences(50)
     stockList = []
     for row in defaultList:
         newRow = {}
@@ -58,7 +58,7 @@ async def updateSortedList(preferences: dict):
     Analyze the sentiment of a given stock ticker
     """
     
-    newList = STOCK_SORTER.sortWithPreferences(preferences)
+    newList = STOCK_SORTER.sortWithPreferences(preferences, 50)
     sortedList = []
     for row in newList:
         newRow = {}

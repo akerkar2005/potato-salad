@@ -23,7 +23,10 @@ class NewsScraper:
         elif torch.cuda.is_available():
             device = torch.device("cuda")
 
-        self.sentimentPipeline = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer, device=0 if device.type == "mps" else -1)
+        availableDevices = ["cuda", "mps"]
+
+        self.sentimentPipeline = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer, 
+                                          device=0 if device.type in availableDevices else -1)
         self.SENTIMENT_LIMIT = 400
 
 

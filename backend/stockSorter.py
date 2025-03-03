@@ -60,6 +60,7 @@ class StockSorter:
         if '0' in industries: industries.remove('0')
 
         return list(industries)
+
     
     def getUniqueSectors(self):
         sectors = set()
@@ -71,9 +72,9 @@ class StockSorter:
         return list(sectors)
 
 
-    def sortWithPreferences(self, preferences={}):
+    def sortWithPreferences(self, preferences={}, size = len(self.STOCK_DATA)):
+        if size <= 0: raise ValueError("SIZE LESS THAN 0")
         SORTED_DATA = sorted(self.STOCK_DATA, key=lambda stockData: self.customStockScore(stockData, preferences), reverse = True)
-        return SORTED_DATA
+        return SORTED_DATA[:size]
 
 
-obj = StockSorter()

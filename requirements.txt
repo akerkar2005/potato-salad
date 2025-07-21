@@ -1,0 +1,9 @@
+beautifulsoup4==4.13.4
+fastapi==0.115.12
+humanize==3.10.0
+pandas==2.2.3
+Requests==2.32.3
+torch==2.6.0.dev20241112
+transformers==4.45.2
+uvicorn==0.34.2
+yfinance==0.2.28

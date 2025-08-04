@@ -22,7 +22,7 @@ NEWS_SCRAPER = NewsScraper()
 @app.post('/api/launch')
 async def launchApp():
     # list of dictionaries with stuff like marketCap, shortRatio, forwardPE, ticker, shortName, etc
-    defaultList = STOCK_SORTER.sortWithPreferences(50)
+    defaultList = STOCK_SORTER.sortWithPreferences({}, 50)
     stockList = []
     for row in defaultList:
         newRow = {}

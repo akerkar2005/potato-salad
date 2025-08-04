@@ -72,6 +72,8 @@ class StockScraper:
         print("Beginning processing...")
 
         index = 0
+        rate_limit_triggered = False  # Track if we've hit rate limit once
+
         while index < LIMIT:
             ticker = SYMBOLS[index]
 
@@ -80,6 +82,11 @@ class StockScraper:
 
                 if currData == 'RATE_LIMITED':
                     errorFile.write(f'Rate limited on {ticker}\n')
+                    if not rate_limit_triggered:
+                        print("\n=== RATE LIMIT DETECTED ===")
+                        print("Please switch your Tailscale exit node/device now, then press Enter to continue scraping...")
+                        input("Press Enter after switching VPN/device: ")
+                        rate_limit_triggered = True
                     index -= 1
                     time.sleep(30)
 
@@ -102,5 +109,4 @@ class StockScraper:
     def outputToCSV(self, CSV_NAME):
         OBJECTIVE_DATA_DF = pd.DataFrame(self.tickerData, columns=self.COLUMNS)
         OBJECTIVE_DATA_DF.to_csv(CSV_NAME + '.csv', index = False)
-
 

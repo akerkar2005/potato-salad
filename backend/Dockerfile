@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 10000
 
 # Start FastAPI app (adjust if your entrypoint is different)
-CMD ["python3", "backend/backendApp.py"]
+CMD ["python3", "backendApp.py"]

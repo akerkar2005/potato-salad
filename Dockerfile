@@ -18,6 +18,7 @@ COPY backend/ .
 
 # Expose port (change if your app uses a different port)
 EXPOSE 10000
+ENV PYTHONPATH=/app
 
 # Start FastAPI app (adjust if your entrypoint is different)
 CMD ["python3", "backendApp.py"]

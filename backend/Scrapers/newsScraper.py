@@ -63,6 +63,5 @@ class NewsScraper:
                 print("ARTICLE TITLE: " + key)
                 print("DESCRIPTION: " + articlesDict[key])
                 print("------------------------------------------------------------------------")
-
+    
         return articlesDict
-

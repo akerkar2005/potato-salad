@@ -16,7 +16,9 @@ class StockSorter:
             self.STOCK_DATA.append(stockData)
 
 
-    def customStockScore(self, stockData, preferences = {}):
+    def customStockScore(self, stockData, preferences=None):
+        if preferences is None:
+            preferences = {}
         
         score = 5 * self.SENTIMENT_TO_SCORE[stockData['sentiment']] * stockData['confidence']
 
@@ -61,7 +63,7 @@ class StockSorter:
 
         return list(industries)
 
-    
+
     def getUniqueSectors(self):
         sectors = set()
         for item in self.STOCK_DATA:
@@ -72,9 +74,17 @@ class StockSorter:
         return list(sectors)
 
 
-    def sortWithPreferences(self, preferences={}, size = len(self.STOCK_DATA)):
+    def sortWithPreferences(self, preferences=None, size=None):
+        if preferences is None:
+            preferences = {}
+        if size is None:
+            size = len(self.STOCK_DATA)
         if size <= 0: raise ValueError("SIZE LESS THAN 0")
-        SORTED_DATA = sorted(self.STOCK_DATA, key=lambda stockData: self.customStockScore(stockData, preferences), reverse = True)
+        SORTED_DATA = sorted(
+            self.STOCK_DATA,
+            key=lambda stockData: self.customStockScore(stockData, preferences),
+            reverse=True
+        )
         return SORTED_DATA[:size]
 
 

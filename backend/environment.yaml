@@ -1,0 +1,101 @@
+name: stockscreen
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # Core Python
+  - python=3.12
+  - pip
+  - setuptools
+  - wheel
+
+  # Jupyter + Widgets
+  - jupyter
+  - ipykernel
+  - ipywidgets
+  - jupyterlab
+  - notebook
+
+  # Data Science
+  - numpy
+  - pandas
+  - scipy
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - tqdm
+
+  # Web / Async / FastAPI
+  - aiohttp
+  - fastapi
+  - uvicorn
+  - httpx
+  - websockets
+  - pyyaml
+  - requests
+  - yfinance
+
+  # Transformers & ML
+  - pytorch
+  - torchvision
+  - torchaudio
+  - transformers
+  - huggingface_hub
+  - datasets
+  - accelerate
+
+  # HTML / Scraping / NLP
+  - beautifulsoup4
+  - lxml
+  - html5lib
+  - trafilatura
+  - justext
+  - tld
+  - dateparser
+  - soupsieve
+
+  # Utilities
+  - python-dateutil
+  - typing-extensions
+  - regex
+  - humanize
+  - schedule
+  - psutil
+
+  # Serialization / Formats
+  - pyarrow
+  - fsspec
+
+  # Optional visualization
+  - matplotlib-inline
+
+  # Conda Environment Management
+  - conda
+  - conda-libmamba-solver
+
+  # Optional dev
+  - jinja2
+  - black
+  - flake8
+
+  # Platform Compatibility Helpers
+  - platformdirs
+  - tzdata
+  - tzlocal
+
+  # Optional UI/GUI (macOS/Linux only; remove on headless servers)
+  - pyqt
+
+  # Optional if you need OpenAI tools
+  - openai
+
+  # Optional for sound, games, etc.
+  - pygame
+
+  # Optional extras (if needed for specific financial APIs or scheduling)
+  - finnhub-python
+
+  # Required if using pip-only libraries
+  - pip:
+      - modal==0.73.65
+

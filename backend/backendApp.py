@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from stockSorter import StockSorter
-from scrapers.newsScraper import NewsScraper
 import uvicorn
 import humanize
 
@@ -17,7 +16,6 @@ app.add_middleware(
 )
 
 STOCK_SORTER = StockSorter()
-NEWS_SCRAPER = NewsScraper()
 
 @app.post('/api/launch')
 async def launchApp():

@@ -14,12 +14,13 @@ const Home = ({ navigate }) => {
     const [shortRatio, setShortRatio] = useState('0.0');
     const [PERatio, setPERatio] = useState('0.0');
     const [currentRatio, setCurrentRatio] = useState('0.0');
+    const server = "https://potato-salad-backend-d5b51d0a4e6b.herokuapp.com/api"
 
     useEffect(() => {
         // Make an API call when the component loads
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/launch', {
+                const response = await fetch(`${server}/launch`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -68,7 +69,7 @@ const Home = ({ navigate }) => {
         }
     
         try {
-            const response = await fetch('http://localhost:3000/api/update', {
+            const response = await fetch(`${server}/update`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

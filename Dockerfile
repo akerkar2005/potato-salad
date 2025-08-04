@@ -14,7 +14,7 @@ COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Copy your app code
-COPY . .
+COPY backend/ .
 
 # Expose port (change if your app uses a different port)
 EXPOSE 10000

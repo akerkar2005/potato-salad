@@ -1,4 +1,5 @@
 # Potato Salad
+https://akerkar2005.github.io/potato-salad/
 ## Your one-stop site for all stocks
 
 Potato salad is a stock advisor that draws from nearly 6000 US-listed stocks.

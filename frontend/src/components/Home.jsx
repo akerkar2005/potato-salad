@@ -4,6 +4,23 @@ import StickyHeader from './StickyHeader';
 import CoolTable from './CoolTable';
 
 const Home = ({ navigate }) => {
+    // Submit form on Enter key anywhere on the page
+    React.useEffect(() => {
+        const handleEnter = (e) => {
+            if (e.key === 'Enter') {
+                // Prevent default only if not focused on textarea or text input
+                if (
+                    document.activeElement.tagName !== 'TEXTAREA' &&
+                    !(document.activeElement.tagName === 'INPUT' && document.activeElement.type === 'text')
+                ) {
+                    const form = document.querySelector('.stock-form');
+                    if (form) form.requestSubmit();
+                }
+            }
+        };
+        window.addEventListener('keydown', handleEnter);
+        return () => window.removeEventListener('keydown', handleEnter);
+    }, []);
     const [tableData, setTableData] = useState([]);
     const [industries, setIndustries] = useState([]);
     const [sectors, setSectors] = useState([]);
@@ -55,8 +72,8 @@ const Home = ({ navigate }) => {
             return;
         }
         const preferences = {
-            'industry': selectedIndustries,
-            'sector': selectedSectors,
+            'industry': selectedIndustries.join(','),
+            'sector': selectedSectors.join(','),
         };
 
         const displayFields = [minMarketCap, maxMarketCap, shortRatio, PERatio, currentRatio];
@@ -88,7 +105,8 @@ const Home = ({ navigate }) => {
             <StickyHeader navigate={navigate} />
             <div className="content-container">
                 <form onSubmit={handleSubmit} className="stock-form">
-                <label>Sector:</label>
+                <label className="title">Options</label>
+                <label className="subtitle-label">Sector</label>
                     <div className="form-group-prime">
                         {sectors.map(sector => (
                             <div key={sector}>
@@ -97,12 +115,38 @@ const Home = ({ navigate }) => {
                                     value={sector}
                                     checked={selectedSectors.includes(sector)}
                                     onChange={(e) => handleCheckboxChange(e, setSelectedSectors)}
+                                    style={{ display: 'none' }}
+                                    id={`sector-${sector}`}
                                 />
-                                {sector}
+                                <span
+                                    className={`checkbox-label${selectedSectors.includes(sector) ? ' selected' : ''}`}
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={e => {
+                                        e.preventDefault();
+                                        if (selectedSectors.includes(sector)) {
+                                            setSelectedSectors(selectedSectors.filter(item => item !== sector));
+                                        } else {
+                                            setSelectedSectors([...selectedSectors, sector]);
+                                        }
+                                    }}
+                                    onKeyDown={e => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                            e.preventDefault();
+                                            if (selectedSectors.includes(sector)) {
+                                                setSelectedSectors(selectedSectors.filter(item => item !== sector));
+                                            } else {
+                                                setSelectedSectors([...selectedSectors, sector]);
+                                            }
+                                        }
+                                    }}
+                                >
+                                    {sector}
+                                </span>
                             </div>
                         ))}
                     </div>
-                    <label>Industry:</label>
+                    <label className="subtitle-label">Industry</label>
                     <div className="form-group-prime">
                         {industries.map(industry => (
                             <div key={industry}>
@@ -111,30 +155,58 @@ const Home = ({ navigate }) => {
                                     value={industry}
                                     checked={selectedIndustries.includes(industry)}
                                     onChange={(e) => handleCheckboxChange(e, setSelectedIndustries)}
+                                    style={{ display: 'none' }}
+                                    id={`industry-${industry}`}
                                 />
-                                {industry}
+                                <span
+                                    className={`checkbox-label${selectedIndustries.includes(industry) ? ' selected' : ''}`}
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={e => {
+                                        e.preventDefault();
+                                        if (selectedIndustries.includes(industry)) {
+                                            setSelectedIndustries(selectedIndustries.filter(item => item !== industry));
+                                        } else {
+                                            setSelectedIndustries([...selectedIndustries, industry]);
+                                        }
+                                    }}
+                                    onKeyDown={e => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                            e.preventDefault();
+                                            if (selectedIndustries.includes(industry)) {
+                                                setSelectedIndustries(selectedIndustries.filter(item => item !== industry));
+                                            } else {
+                                                setSelectedIndustries([...selectedIndustries, industry]);
+                                            }
+                                        }
+                                    }}
+                                >
+                                    {industry}
+                                </span>
                             </div>
                         ))}
                     </div>
-                    <div className="form-group">
-                        <label>Min Market Cap:</label>
-                        <input type="text" value={minMarketCap} onChange={(e) => setMinMarketCap(e.target.value)} placeholder="Enter minimum market cap" />
-                    </div>
-                    <div className="form-group">
-                        <label>Max Market Cap:</label>
-                        <input type="text" value={maxMarketCap} onChange={(e) => setMaxMarketCap(e.target.value)} placeholder="Enter maximum market cap" />
-                    </div>
-                    <div className="form-group">
-                        <label>Short Ratio:</label>
-                        <input type="text" value={shortRatio} onChange={(e) => setShortRatio(e.target.value)} placeholder="Enter short ratio" />
-                    </div>
-                    <div className="form-group">
-                        <label>P/E Ratio:</label>
-                        <input type="text" value={PERatio} onChange={(e) => setPERatio(e.target.value)} placeholder="Enter P/E ratio" />
-                    </div>
-                    <div className="form-group">
-                        <label>Current Ratio:</label>
-                        <input type="text" value={currentRatio} onChange={(e) => setCurrentRatio(e.target.value)} placeholder="Enter current ratio" />
+                    <div className="form-fields">
+                        <div className="form-group">
+                            <label className="small-subtitle-label">Min Market Cap</label>
+                            <input type="text" value={minMarketCap} onChange={(e) => setMinMarketCap(e.target.value)} placeholder="Enter minimum market cap" />
+                        </div>
+                        <div className="form-group">
+                            <label className="small-subtitle-label">Max Market Cap</label>
+                            <input type="text" value={maxMarketCap} onChange={(e) => setMaxMarketCap(e.target.value)} placeholder="Enter maximum market cap" />
+                        </div>
+                        <div className="form-group">
+                            <label className="small-subtitle-label">Short Ratio</label>
+                            <input type="text" value={shortRatio} onChange={(e) => setShortRatio(e.target.value)} placeholder="Enter short ratio" />
+                        </div>
+                        <div className="form-group">
+                            <label className="small-subtitle-label">P/E Ratio</label>
+                            <input type="text" value={PERatio} onChange={(e) => setPERatio(e.target.value)} placeholder="Enter P/E ratio" />
+                        </div>
+                        <div className="form-group">
+                            <label className="small-subtitle-label">Current Ratio</label>
+                            <input type="text" value={currentRatio} onChange={(e) => setCurrentRatio(e.target.value)} placeholder="Enter current ratio" />
+                        </div>
                     </div>
                     <button type="submit" className="submit-button">Submit</button>
                 </form>

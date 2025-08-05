@@ -5,12 +5,14 @@
     justify-content: center;
     overflow: visible;
     padding: 0px 0px 0px 0px;
+    background-color: #222;
 }
 
 .about-us {
   text-align: center;
   padding: 10px;
   font-size: 18px;
+  color: #ffffff;
 }
 
 .team {

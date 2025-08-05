@@ -13,7 +13,7 @@ const teamMembers = [
     imageUrl: aaruni,
     linkedInUrl: 'https://www.linkedin.com/in/aaruni-g/',
     githubUrl: 'https://github.com/kanucool',
-    resumeUrl: '/aaruni.pdf'
+    resumeUrl: '/potato-salad/aaruni.pdf'
   },
   {
     name: 'Pablo Yague',
@@ -22,7 +22,7 @@ const teamMembers = [
     imageUrl: pablo,
     linkedInUrl: 'https://www.linkedin.com/in/pablo-yague-garces-6877332b0/',
     githubUrl: 'https://github.com/pyaguega',
-    resumeUrl: '/pablo.pdf'
+    resumeUrl: '/potato-salad/pablo.pdf'
   },
   {
     name: 'Atharva Kerkar',
@@ -31,7 +31,7 @@ const teamMembers = [
     imageUrl: atharva,
     linkedInUrl: 'https://www.linkedin.com/in/atharva-kerkar-58b4a5290/',
     githubUrl: 'https://github.com/akerkar2005',
-    resumeUrl: '/atharva.pdf'
+    resumeUrl: '/potato-salad/atharva.pdf'
   }
 ];
 

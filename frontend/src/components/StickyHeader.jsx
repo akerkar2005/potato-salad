@@ -6,14 +6,13 @@ function StickyHeader({ navigate }) {
     const [flippedButton, setFlippedButton] = useState(null);
 
     useEffect(() => {
-        // Add the 'flipped' class to all buttons on startup
+        // On mount, show text (back) by adding .flipped to all flip buttons
         const buttons = document.querySelectorAll('.flip-button');
         buttons.forEach(button => button.classList.add('flipped'));
-
-        // Remove the 'flipped' class after a short delay to flip them back up
+        // After a short delay, remove .flipped to flip to icon (front)
         setTimeout(() => {
             buttons.forEach(button => button.classList.remove('flipped'));
-        }, 300); // Adjust the delay as needed
+        }, 600); // Adjust delay for desired effect
     }, []);
 
     const handleClick = (event, path) => {

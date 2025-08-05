@@ -3,14 +3,20 @@ import './CoolTable.css';
 
 const CoolTable = ({ data }) => {
   if (data.length === 0) {
-    return <div>No data available</div>;
+    return <div style={{ textAlign: 'center', padding: '20px', color: '#fff' }}>No data available</div>;
   }
 
   // Extract headers from the keys of the first dictionary
   const headers = Object.keys(data[0]);
 
-  // Remove the 8th and 9th headers (assuming they are at index 7 and 8)
-  const modifiedHeaders = [...headers.slice(0, 8), 'Sentiment'];
+  // Use explicit keys for sentiment and confidence
+  const sentimentKey = headers.find(h => h.toLowerCase().includes('sentiment')) || 'sentiment';
+  const confidenceKey = headers.find(h => h.toLowerCase().includes('confidence')) || 'confidence';
+  const marketCapKey = headers.find(h => h.toLowerCase().includes('market cap')) || 'Market Cap';
+
+  // Remove sentiment and confidence from headers for display
+  const displayHeaders = headers.filter(h => h !== sentimentKey && h !== confidenceKey);
+  const modifiedHeaders = [...displayHeaders, 'Sentiment'];
 
   // Function to get the color based on sentiment and confidence
   const getColor = (sentiment, confidence) => {
@@ -44,24 +50,27 @@ const CoolTable = ({ data }) => {
         <tbody>
           {data.map((row, rowIndex) => (
             <tr key={rowIndex}>
-              {headers.slice(0, 8).map((header, cellIndex) => (
-                <td key={cellIndex}>{row[header]}</td>
+              {displayHeaders.map((header, cellIndex) => (
+                <td key={cellIndex}>
+                  {/* Fix Market Cap tuple bug */}
+                  {header === marketCapKey && Array.isArray(row[header]) ? row[header][0] : row[header]}
+                </td>
               ))}
               <td key="sentiment">
-              <a target = '_blank'
-              href = {`https://finance.yahoo.com/quote/${row[headers[0]]}/news`}>
-              <div
+                <a target='_blank'
+                  href={`https://finance.yahoo.com/quote/${row[headers[0]]}/news`}>
+                  <div
                     style={{
                       width: '100%',
                       height: '100%',
-                      backgroundColor: getColor(row[headers[8]], row[headers[9]]),
+                      backgroundColor: getColor(row[sentimentKey], row[confidenceKey]),
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       color: '#000', // Text color for better readability
                     }}>
-                    {row[headers[8]]}
-                </div>
+                    {row[sentimentKey]}
+                  </div>
                 </a>
               </td>
             </tr>

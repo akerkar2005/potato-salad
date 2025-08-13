@@ -12,7 +12,7 @@ function StickyHeader({ navigate }) {
         // After a short delay, remove .flipped to flip to icon (front)
         setTimeout(() => {
             buttons.forEach(button => button.classList.remove('flipped'));
-        }, 600); // Adjust delay for desired effect
+        }, 600);
     }, []);
 
     const handleClick = (event, path) => {
@@ -20,7 +20,7 @@ function StickyHeader({ navigate }) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => {
             navigate(path);
-        }, 100); // Adjust the timeout duration as needed
+        }, 100);
     };
 
     return (

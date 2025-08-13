@@ -42,6 +42,8 @@
     height: 80px;
     transform: scale(1.2);
     width: auto;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 /* Container for other buttons */
